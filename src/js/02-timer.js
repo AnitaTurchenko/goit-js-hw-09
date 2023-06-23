@@ -3,10 +3,10 @@ import "flatpickr/dist/flatpickr.min.css";
 
 const startBtn = document.querySelector('button[data-start]');
 const input = document.querySelector("#datetime-picker");
-const dayEl = document.querySelector('button[data-days]');
-const hoursEl = document.querySelector('button[data-hours]');
-const minutesEl = document.querySelector('button[data-minutes]');
-const secondsEl = document.querySelector('button[data-seconds]');
+const dayEl = document.querySelector('[data-days]');
+const hoursEl = document.querySelector('[data-hours]');
+const minutesEl = document.querySelector('[data-minutes]');
+const secondsEl = document.querySelector('[data-seconds]');
 let timerId = null;
 let selectedTime;
 startBtn.disabled = true;
@@ -38,12 +38,21 @@ function startTimer() {
         const currentTime = Date.now();
         const difTime = selectedTime - currentTime;
         let numbers = convertMs(difTime);
-        console.log(numbers);
+
+        if (dayEl.textContent === "00" &&
+        hoursEl.textContent === "00" &&
+        minutesEl.textContent === "00" &&
+        secondsEl.textContent === "00") {
+        clearInterval(timerId);
+        return;
+    }
+
         dayEl.textContent = numbers.days;
         hoursEl.textContent = numbers.hours;
         minutesEl.textContent = numbers.minutes;
         secondsEl.textContent = numbers.seconds;
-    },1000)
+    },1000);
+    
 }
 
 flatpickr(input, options);
