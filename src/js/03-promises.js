@@ -31,7 +31,8 @@ let step = Number(stepEl.value);
 let amount = Number(amountEl.value);
 
 if (delay < 0 || step < 0 || amount <= 0) {
-  Notiflix.Notify.failure(`Please enter a correct value`)
+  Notiflix.Notify.failure(`Please enter a correct value`);
+  return;
 };
 
 for (let i = 1; i <= amount; i += 1) {
