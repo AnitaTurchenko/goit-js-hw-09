@@ -37,6 +37,7 @@ startBtn.addEventListener('click', startTimer);
 function startTimer() {
     timerId = setInterval(() => {
         startBtn.disabled = true;
+        input.disabled = true;
         const currentTime = Date.now();
         const difTime = selectedTime - currentTime;
         let numbers = convertMs(difTime);
@@ -51,6 +52,7 @@ function startTimer() {
         minutesEl.textContent === "00" &&
         secondsEl.textContent === "00") {
         clearInterval(timerId);
+        input.disabled = false;
         return;
     }
     },1000);
