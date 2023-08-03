@@ -11,6 +11,9 @@ const secondsEl = document.querySelector('[data-seconds]');
 let timerId = null;
 let selectedTime;
 startBtn.disabled = true;
+let resetBtn;
+createBtnReset();
+resetBtn.disabled = true;
 // const currentTime = Date.now();
 // console.log(currentTime);
 
@@ -27,17 +30,21 @@ const options = {
       if (Date.now() > selectedTime) {
         startBtn.disabled = true;
         Notiflix.Notify.failure("Please choose a date in the future");
+        return;
       };
         startBtn.disabled = false;
   }
 };
 
 startBtn.addEventListener('click', startTimer);
+resetBtn.addEventListener('click', resetTimer);
 
 function startTimer() {
     timerId = setInterval(() => {
+
         startBtn.disabled = true;
         input.disabled = true;
+        resetBtn.disabled = false;
         const currentTime = Date.now();
         const difTime = selectedTime - currentTime;
         let numbers = convertMs(difTime);
@@ -53,6 +60,7 @@ function startTimer() {
         secondsEl.textContent === "00") {
         clearInterval(timerId);
         input.disabled = false;
+        resetBtn.disabled = true;
         return;
     }
     },1000);
@@ -78,3 +86,20 @@ function convertMs(ms) {
 function pad(value) {
     return String(value).padStart(2, '0');
 };
+
+function createBtnReset() {
+    resetBtn = document.createElement("button");
+    resetBtn.textContent = "Reset";
+    startBtn.insertAdjacentElement("afterend", resetBtn);
+};
+
+function resetTimer() {
+    resetBtn.disabled = true;
+    startBtn.disabled = false;
+    input.disabled = false;
+    clearInterval(timerId);
+    dayEl.textContent = "00";
+    hoursEl.textContent = "00";
+    minutesEl.textContent = "00";
+    secondsEl.textContent = "00";
+}
