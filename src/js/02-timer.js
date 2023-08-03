@@ -61,6 +61,7 @@ function startTimer() {
         clearInterval(timerId);
         input.disabled = false;
         resetBtn.disabled = true;
+        startBtn.disabled - true;
         return;
     }
     },1000);
@@ -95,7 +96,7 @@ function createBtnReset() {
 
 function resetTimer() {
     resetBtn.disabled = true;
-    startBtn.disabled = false;
+    startBtn.disabled = true;
     input.disabled = false;
     clearInterval(timerId);
     dayEl.textContent = "00";
